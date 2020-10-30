@@ -16,6 +16,6 @@ public class HomeActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.rv_home_show);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        mRecyclerView.setAdapter(mRecyclerView);
+        mRecyclerView.setAdapter(mRecyclerView.getAdapter());
     }
 }
