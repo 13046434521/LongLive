@@ -70,7 +70,7 @@ public class AndroidMediaController extends FrameLayout implements IMediaControl
 
     @Override
     public boolean isShowing() {
-        return this.getVisibility()==VISIBLE;
+        return isShowing;
     }
 
     @Override
@@ -79,14 +79,15 @@ public class AndroidMediaController extends FrameLayout implements IMediaControl
         if (!isShowing()){
             mediaController.setVisibility(VISIBLE);
             isShowing = true;
+
+            this.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mediaController.setVisibility(GONE);
+                    isShowing = false;
+                }
+            },timeout);
         }
-        this.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mediaController.setVisibility(GONE);
-                isShowing = false;
-            }
-        },timeout);
     }
 
     @Override
