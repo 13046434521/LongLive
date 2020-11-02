@@ -21,6 +21,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -181,6 +182,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                 LayoutParams.WRAP_CONTENT,
                 Gravity.BOTTOM);
         addView(subtitleDisplay, layoutParams_txt);
+        this.setBackgroundColor(Color.BLACK);
     }
 
     public void setRenderView(IRenderView renderView) {
@@ -387,10 +389,10 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     private void attachMediaController() {
         if (mMediaPlayer != null && mMediaController != null) {
-            mMediaController.setMediaPlayer(this);
-            View anchorView = this.getParent() instanceof View ?
-                    (View) this.getParent() : this;
-            mMediaController.setAnchorView(anchorView);
+//            mMediaController.setMediaPlayer(this);
+//            View anchorView = this.getParent() instanceof View ?
+//                    (View) this.getParent() : this;
+//            mMediaController.setAnchorView(anchorView);
             mMediaController.setEnabled(isInPlaybackState());
         }
     }
@@ -402,6 +404,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                     mVideoHeight = mp.getVideoHeight();
                     mVideoSarNum = mp.getVideoSarNum();
                     mVideoSarDen = mp.getVideoSarDen();
+                    Log.w(TAG,"onVideoSizeChanged mVideoWidth:"+mVideoWidth+"mVideoHeight:"+mVideoHeight);
                     if (mVideoWidth != 0 && mVideoHeight != 0) {
                         if (mRenderView != null) {
                             mRenderView.setVideoSize(mVideoWidth, mVideoHeight);
@@ -415,7 +418,6 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     IMediaPlayer.OnPreparedListener mPreparedListener = new IMediaPlayer.OnPreparedListener() {
         public void onPrepared(IMediaPlayer mp) {
-            Log.w(TAG,"OnPreparedListener ");
             mPrepareEndTime = System.currentTimeMillis();
             if (mHudViewHolder!=null){
                 mHudViewHolder.updateLoadCost(mPrepareEndTime - mPrepareStartTime);
@@ -433,7 +435,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             }
             mVideoWidth = mp.getVideoWidth();
             mVideoHeight = mp.getVideoHeight();
-
+            Log.w(TAG,"OnPreparedListener "+"mVideoWidth:"+mVideoWidth+"mVideoHeight:"+mVideoHeight);
             int seekToPosition = mSeekWhenPrepared;  // mSeekWhenPrepared may be changed after seekTo() call
             if (seekToPosition != 0) {
                 seekTo(seekToPosition);
@@ -1272,5 +1274,9 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     public int getSelectedTrack(int trackType) {
         return MediaPlayerCompat.getSelectedTrack(mMediaPlayer, trackType);
+    }
+
+    public TextView getSubtitleDisplay(){
+        return subtitleDisplay;
     }
 }

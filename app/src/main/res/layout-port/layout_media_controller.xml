@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/iv_media_back"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/ic_video_back"
+        android:scaleType="centerInside"
+        android:tag="返回"
+        android:layout_margin="@dimen/dp_10"/>
+
+    <ImageView
+        android:id="@+id/iv_media_play"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@mipmap/ic_video_play"
+        android:scaleType="centerInside"
+        android:tag="播放"
+        android:visibility="gone"
+        android:layout_margin="@dimen/dp_10"/>
+
+
+    <ImageView
+        android:id="@+id/iv_media_screen"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@mipmap/control_full"
+        android:scaleType="centerInside"
+        android:tag="全屏"
+        android:layout_margin="@dimen/dp_10"/>
+</android.support.constraint.ConstraintLayout>

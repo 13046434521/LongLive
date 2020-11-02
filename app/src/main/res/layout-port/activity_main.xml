@@ -16,7 +16,7 @@
         app:title="TV"/>
 
 
-    <com.jtl.ijklibrary.widget.media.VideoView
+    <com.jtl.longlive.widget.VideoView
         android:id="@+id/video_main_play"
         android:layout_width="0dp"
         android:layout_height="0dp"
