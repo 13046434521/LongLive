@@ -1,6 +1,8 @@
 package com.jtl.longlive;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +13,7 @@ import android.view.View;
 import com.jtl.longlive.widget.AndroidMediaController;
 import com.jtl.longlive.widget.VideoView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AndroidMediaController.ControllerBackListener, AndroidMediaController.ControllerScreenListener {
     private static final String TAG = HomeActivity.class.getSimpleName();
     private VideoView mVideoView;
     private Toolbar mToolbar;
@@ -31,7 +33,10 @@ public class MainActivity extends AppCompatActivity {
         String name = intent.getStringExtra("Name");
         Log.d(TAG, "url:" + url);
         mVideoView.setUrl(url);
+        mVideoView.setControllerBackListener(this::backListener);
+        mVideoView.setControllerScreenListener(this::screenListener);
         mToolbar.setTitle(name);
+        mVideoView.show();
     }
 
     @Override
@@ -69,6 +74,33 @@ public class MainActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d("translate","翻跟斗");
+    }
+
+    @Override
+    public void backListener() {
+        finish();
+    }
+
+    @Override
+    public void screenListener() {
+        Configuration configuration = getResources().getConfiguration();
+        // 当前是横屏
+        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.i(TAG, "设为竖屏");
+            MainActivity.this
+                    .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+
+            Log.i(TAG, "设为横屏");
+            MainActivity.this
+                    .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
     }
 }
