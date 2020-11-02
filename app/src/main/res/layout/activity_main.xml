@@ -5,13 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+<android.support.v7.widget.Toolbar
+    android:id="@+id/tool_main_show"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/video_main_play" />
     <com.jtl.ijklibrary.widget.media.VideoView
         android:id="@+id/video_main_play"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_main_show"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />

@@ -415,6 +415,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     IMediaPlayer.OnPreparedListener mPreparedListener = new IMediaPlayer.OnPreparedListener() {
         public void onPrepared(IMediaPlayer mp) {
+            Log.w(TAG,"OnPreparedListener ");
             mPrepareEndTime = System.currentTimeMillis();
             if (mHudViewHolder!=null){
                 mHudViewHolder.updateLoadCost(mPrepareEndTime - mPrepareStartTime);
@@ -474,6 +475,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private IMediaPlayer.OnCompletionListener mCompletionListener =
             new IMediaPlayer.OnCompletionListener() {
                 public void onCompletion(IMediaPlayer mp) {
+                    Log.w(TAG,"OnCompletionListener ");
                     mCurrentState = STATE_PLAYBACK_COMPLETED;
                     mTargetState = STATE_PLAYBACK_COMPLETED;
                     if (mMediaController != null) {
@@ -488,6 +490,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private IMediaPlayer.OnInfoListener mInfoListener =
             new IMediaPlayer.OnInfoListener() {
                 public boolean onInfo(IMediaPlayer mp, int arg1, int arg2) {
+                    Log.w(TAG,"OnInfoListener "+arg1+" "+arg2);
                     if (mOnInfoListener != null) {
                         mOnInfoListener.onInfo(mp, arg1, arg2);
                     }
@@ -539,6 +542,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private IMediaPlayer.OnErrorListener mErrorListener =
             new IMediaPlayer.OnErrorListener() {
                 public boolean onError(IMediaPlayer mp, int framework_err, int impl_err) {
+                    Log.w(TAG,"OnErrorListener "+framework_err+" "+impl_err);
                     Log.d(TAG, "Error: " + framework_err + "," + impl_err);
                     mCurrentState = STATE_ERROR;
                     mTargetState = STATE_ERROR;
